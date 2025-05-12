@@ -1,0 +1,47 @@
+/* Sidebar Styles */
+#sidebar {
+  position: sticky; /* Fix the sidebar to the left of the screen */
+  
+  left: 0;
+  /* Adjust this value based on the desired width of the sidebar */
+  height: 100vh; /* Full height of the viewport */
+  overflow-y: auto; /* Allow vertical scrolling inside the sidebar if content overflows */
+  padding: 15px;
+  
+ 
+}
+
+
+
+/* Heading styling inside sidebar */
+#sidebar h4, #sidebar h5 {
+  font-weight: bold;
+}
+
+/* Space out list items inside the sidebar */
+#sidebar .list-unstyled li {
+  margin-bottom: 10px;
+}
+
+/* Make the range slider take full width */
+#sidebar .form-range {
+  width: 100%;
+}
+
+/* Optional: Styling for the separator line */
+.separator {
+  border-top: 1px solid #ccc;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Optional: Prevent horizontal scrolling */
+body {
+  overflow-x: hidden;
+}
+
+
+#shoe-size label{
+  margin-bottom: 5px;
+  
+}

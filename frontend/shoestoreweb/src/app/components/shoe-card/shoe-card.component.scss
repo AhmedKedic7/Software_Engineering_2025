@@ -1,0 +1,20 @@
+.card{
+    margin: 5px;
+    width: 100%;
+}
+.alert-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2; /* Make sure it's on top of the image */
+    padding: 0 10px;
+  }
+
+  .text-height{
+    height: 60px;
+  }

@@ -1,0 +1,24 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+@media (max-width: 768px) {
+    .app-shoe-card {
+      margin-bottom: 20px;  /* Adjust margin for smaller screens */
+    }
+  }
+  
+  @media (min-width: 768px) and (max-width: 1200px) {
+    .app-shoe-card {
+      margin-bottom: 30px;  /* Adjust margin for medium screens */
+    }
+  }
+  

@@ -1,0 +1,42 @@
+<div class="text-white py-5">
+    <div class="container py-5">
+      <h1>
+        Best shoes & <br />
+        brands in our store
+      </h1>
+      <p>
+        Trendy Shoes, Factory Prices, Excellent Service
+      </p>
+      
+      
+        <a href="products">
+        <button type="button" class="btn btn-light shadow-0 text-dark border border-white w-25">
+          <span class="pt-1">Shop now</span>
+        </button>
+      </a>
+      
+    
+    
+    </div>
+    
+  </div>
+  <section>
+    <div class="col-8 d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3 mx-auto">
+      <header class=" text-secondary">
+        <h3>New products</h3>
+      </header>
+      <a href="products" class="btn btn-outline-dark  px-4 py-2 rounded-3 shadow-sm transition-all hover-effect">
+        View All
+      </a>
+      
+    </div>
+    
+    <div class="col-8 col-md-8 col-lg-9 p-3 mx-auto">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3 mx-auto">
+          <div class="col" *ngFor="let shoe of latestShoes">
+            <app-shoe-card [product]="shoe"></app-shoe-card>
+          </div>
+        </div>
+    </div>
+    
+</section>
