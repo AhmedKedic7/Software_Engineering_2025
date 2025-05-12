@@ -1,0 +1,21 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/Software_Engineering_2025/CopilotIndices/17.13.441.19478
+/backend/ShoeStore/.vs/ShoeStore/copilot-chat
+/backend/ShoeStore/.vs/ShoeStore/CopilotIndices
+/.vs
+/backend/ShoeStore/.vs
+/backend/ShoeStore/ShoeStore/bin/Debug/net8.0
+/backend/ShoeStore/ShoeStore/obj
+/backend/ShoeStore/ShoeStore.Contracts/bin/Debug/net8.0
+/backend/ShoeStore/ShoeStore.Contracts/obj
+/backend/ShoeStore/ShoeStore.Services/bin/Debug/net8.0
+/backend/ShoeStore/ShoeStore.Services/obj
+/backend/ShoeStore/ShoeStoreAPP/obj
+/backend/ShoeStore/ShoeStoreAPP/Pages
+/backend/ShoeStore/ShoeStoreAPP/wwwroot
+/backend/ShoeStore/ShoeStoreDAL/bin/Debug/net8.0
+/backend/ShoeStore/ShoeStoreDAL/obj
+/frontend/shoestoreweb/.vscode

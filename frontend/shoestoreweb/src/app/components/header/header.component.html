@@ -1,0 +1,55 @@
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+       
+        <a href="home" class="d-flex align-items-center mb-4 mb-lg-0 text-white text-decoration-none">
+            <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"> <h3>xSHOES</h3> </div>
+        </a>
+
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+          <li><a href="home" class="nav-link px-2 text-light">Home</a></li>
+          <li><a href="products" class="nav-link px-2 text-light">Shoes</a></li>
+          
+          
+        </ul>
+
+        <form (submit)="onSearch($event)" class="col-12 col-lg-5 mb-3 mb-lg-0 me-lg-3">
+          <div class="input-group">
+            
+            
+        
+            <!-- Search Input -->
+            <input 
+            type="search" 
+            class="form-control form-control-dark" 
+            id="searchInput" 
+            
+            placeholder="Search..." 
+            aria-label="Search"
+          />
+             
+          <select 
+          class="form-select" 
+          id="categorySelect" 
+          
+          aria-label="Select category">
+          <option value="all-shoes" selected>All Shoes</option>
+          <option value="men-shoes">Men</option>
+          <option value="women-shoes">Women</option>
+        </select>
+
+            <!-- Optional: Submit Button -->
+            <button type="submit" class="btn btn-dark"><i class="bi bi-search"></i></button>
+          </div>
+        </form>
+        <div class="text-end">
+            
+          <a href="cart"><button type="button" class="btn btn-outline-light me-2"><i class="bi bi-cart"></i> </button></a>
+          <a href="login"><button type="button" class="btn btn-outline-light me-2">Login</button></a>
+          <a href="register"><button type="button" class="btn btn-warning">Sign-up</button></a>
+          
+        </div>
+        
+      </div>
+    </div>
+  </header>

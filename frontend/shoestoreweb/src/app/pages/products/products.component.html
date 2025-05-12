@@ -1,0 +1,234 @@
+
+<div class="bg-white mb-4">
+  <div class="container py-4">
+    
+    <!-- Breadcrumb -->
+    <nav class="d-flex mb-2">
+      <h6 class="mb-0">
+        <a href="" class="text-secondary">Home</a>
+        <span class="text-dark-50 mx-2"> > </span>
+        <a href="" class="text-secondary">Shoes</a>
+        
+      </h6>
+    </nav>
+    <hr>
+    <!-- Breadcrumb -->
+    <h3 class="text-secondary mt-2">All Shoes</h3>
+    
+  </div>
+</div>
+<section class="">
+  <div class="container">
+    <div class="row">
+      <!-- sidebar -->
+      <div class="col-lg-3">
+        <!-- Toggle button -->
+        <button class="btn btn-outline-secondary mb-3 w-100 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-expanded="false" aria-controls="navbarSupportedContent">
+          <span>Show filter</span>
+        </button>
+        <!-- Collapsible wrapper -->
+        <div class="collapse card d-lg-block mb-5 shadow-sm" id="navbarSupportedContent">
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Gender
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
+                <div class="accordion-body">
+                  <ul class="list-unstyled">
+                    <div class="form-check form-switch">
+                    <li><input class="form-check-input" type="checkbox"  id="M" (change)="onGenderChange($event)"/> <label  for="men">Men</label></li>
+                  </div>
+                  <div class="form-check form-switch">
+                    <li><input class="form-check-input" type="checkbox" id="F" (change)="onGenderChange($event)"/> <label for="women">Women</label></li>
+                  </div>
+                  <div class="form-check form-switch">
+                    <li><input class="form-check-input" type="checkbox" id="U" (change)="onGenderChange($event)"/> <label for="unisex">Unisex</label></li>
+                  </div>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                  Brands
+                </button>
+              </h2>
+              <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo">
+                <div class="accordion-body">
+                  <div>
+                    <!-- Checked checkbox -->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox"  id="Nike"  (change)="onBrandChange($event)" />
+                      <label class="form-check-label" for="flexCheckChecked1" >Nike</label>
+                      
+                    </div>
+                    <!-- Checked checkbox -->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="Adidas"  (change)="onBrandChange($event)" />
+                      <label class="form-check-label" for="flexCheckChecked2">Adidas</label>
+                      
+                    </div>
+                    <!-- Checked checkbox -->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="Jordan"  (change)="onBrandChange($event)" />
+                      <label class="form-check-label" for="flexCheckChecked3">Jordan</label>
+                      
+                    </div>
+                    <!-- Checked checkbox -->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="Vans"  (change)="onBrandChange($event)"/>
+                      <label class="form-check-label" for="flexCheckChecked4">Vans</label>
+                      
+                    </div>
+                    <!-- Default checkbox -->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="New Balance"  (change)="onBrandChange($event)" />
+                      <label class="form-check-label" for="flexCheckDefault">New Balance</label>
+                      
+                    </div>
+                    <!-- Default checkbox -->
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="Puma"  (change)="onBrandChange($event)" />
+                      <label class="form-check-label" for="flexCheckDefault">Puma</label>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                  Price
+                </button>
+              </h2>
+              <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree">
+                <div class="accordion-body">
+                  
+                  <div class="row mb-3">
+                    <div class="col-6">
+                      <p class="mb-0">
+                        Min
+                      </p>
+                      <div class="form-outline">
+                        <input type="number" id="typeNumber" class="form-control" [(ngModel)]="priceRange.min" />
+                        <label class="form-label" for="typeNumber"></label>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <p class="mb-0">
+                        Max
+                      </p>
+                      <div class="form-outline">
+                        <input type="number" id="typeNumber" class="form-control" [(ngModel)]="priceRange.max"/>
+                        <label class="form-label" for="typeNumber"></label>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" class="btn  w-100 border border-secondary hover" (click)="onPriceChange(priceRange.min, priceRange.max)">Apply</button>
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                  Size
+                </button>
+              </h2>
+              <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingThree">
+                <div class="accordion-body">
+                  <ul class="list-unstyled row g-4" id="shoe-size">
+                    <!-- Column 1 -->
+                    <div class="col-3 mb-2 p-2">
+                      <input type="checkbox" class="btn-check" id="size36" (change)="onSizeChange($event)">
+                      <label class="btn btn-outline-primary" for="size36">36</label><br>
+                      <input type="checkbox" class="btn-check" id="size37" (change)="onSizeChange($event)">
+                      <label class="btn btn-outline-primary" for="size37">37</label><br>
+                      <input type="checkbox" class="btn-check" id="size38" (change)="onSizeChange($event)">
+                      <label class="btn btn-outline-primary" for="size38">38</label><br>
+                    </div>
+                
+                    <!-- Column 2 -->
+                    <div class="col-3 mb-2 p-2">
+                      <input type="checkbox" class="btn-check" id="size39" (change)="onSizeChange($event)">
+                      <label class="btn btn-outline-primary" for="size39">39</label><br>
+                      <input type="checkbox" class="btn-check" id="size40" (change)="onSizeChange($event)">
+                      <label class="btn btn-outline-primary" for="size40">40</label><br>
+                      <input type="checkbox" class="btn-check" id="size41" (change)="onSizeChange($event)">
+                      <label class="btn btn-outline-primary" for="size41">41</label><br>
+                    </div>
+                
+                    <!-- Column 3 -->
+                    <div class="col-3 mb-2 p-2">
+                      <input type="checkbox" class="btn-check" id="size42" (change)="onSizeChange($event)">
+                      <label class="btn btn-outline-primary" for="size42">42</label><br>
+                      <input type="checkbox" class="btn-check" id="size43" (change)="onSizeChange($event)">
+                      <label class="btn btn-outline-primary" for="size43">43</label><br>
+                      <input type="checkbox" class="btn-check" id="size44" (change)="onSizeChange($event)">
+                      <label class="btn btn-outline-primary" for="size44">44</label><br>
+                    </div>
+                
+                    <!-- Column 4 -->
+                    <div class="col-3 mb-2 p-2">
+                      <input type="checkbox" class="btn-check" id="size45" (change)="onSizeChange($event)">
+                      <label class="btn btn-outline-primary" for="size45">45</label><br>
+                      <input type="checkbox" class="btn-check" id="size46" (change)="onSizeChange($event)">
+                      <label class="btn btn-outline-primary" for="size46">46</label><br>
+                      <input type="checkbox" class="btn-check" id="size47" (change)="onSizeChange($event)">
+                      <label class="btn btn-outline-primary" for="size47">47</label><br>
+                    </div>
+                  </ul>
+                </div>
+                
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      <!-- sidebar -->
+      <!-- content -->
+      <div class="col-lg-9">
+        <header class="d-sm-flex justify-content-end border-bottom mb-4 pb-3">
+          <strong class="d-block py-2 ">{{dataCount}} Items found </strong>
+          
+        </header>
+
+        <div class="row">
+          <div *ngFor="let product of getPaginatedItems()" class="col-lg-4 col-md-6 col-sm-6 d-flex mb-2">
+            <app-shoe-card [product]="product"></app-shoe-card>
+          </div>
+        </div>
+
+        <hr />
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
+          <ul class="pagination">
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a class="page-link" href="javascript:void(0);" (click)="prevPage()" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+        
+            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i + 1 === currentPage">
+              <a class="page-link" href="javascript:void(0);" (click)="changePage(i + 1)">{{ i + 1 }}</a>
+            </li>
+        
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <a class="page-link" href="javascript:void(0);" (click)="nextPage()" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        <!-- Pagination -->
+      </div>
+    </div>
+  </div>            
+</section>
+<!-- sidebar + content -->
+

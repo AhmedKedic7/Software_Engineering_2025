@@ -1,0 +1,45 @@
+<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+  <div class="card shadow-sm">
+    <!-- Display the main image dynamically -->
+    <img
+      *ngIf="product?.images?.length > 0"
+      [src]="getMainImage(product.images)"
+      class="card-img-top"
+      alt="{{ product?.name }}"
+    />
+    <img
+      *ngIf="!product?.images?.length"
+      src="https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/0d5b542c-bb5d-470d-84c3-7f0e17027ab7/NIKE+DUNK+LOW+RETRO.png"
+      class="card-img-top"
+      alt="Default image"
+    />
+    <!-- <div *ngIf="showAlert" class="alert-overlay">
+      <ngb-alert type="info" [dismissible]="false">
+        Successfully added to cart!
+      </ngb-alert>
+    </div> -->
+    <div class="card-body">
+      <h5 class="card-title text-height">{{ product?.name }}</h5>
+      <h5 class="card-subtitle mb-2 text-muted ">${{ product?.price }}</h5>
+      <p class="card-text text-height">{{ product?.description }}</p>
+
+      <hr />
+      <a
+        *ngIf="product?.productId"
+        [routerLink]="['/product', product.productId]"
+        class="btn btn-primary"
+      >
+        View Shoe
+      </a>
+
+      <button
+        class="btn btn-light border icon-hover mx-2 px-2 pt-2"
+        (click)="addToCart(product.productId)"
+      >
+        <i class="bi bi-bag-check-fill text-secondary px-1"></i>
+      </button>
+    </div>
+  </div>
+</div>
+
+
