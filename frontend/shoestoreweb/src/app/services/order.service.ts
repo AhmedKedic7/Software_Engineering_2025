@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { CreateOrderRequest,OrderResponse } from '../models/order.model';
-
+import { CreateOrderRequest, OrderResponse } from '../models/order.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OrderService {
-  private apiUrl = 'http://localhost:5098/api/Orders'; 
+  private apiUrl = `${environment.url}/Orders`;
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +19,7 @@ export class OrderService {
   getOrdersByUserId(userId: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/users/${userId}`);
   }
-  getAllOrders(): Observable<any[]>{
+  getAllOrders(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
 }
