@@ -1,0 +1,66 @@
+
+
+<div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar Section (Left side) -->
+      <div class="col-md-2 col-12 d-flex flex-column flex-shrink-0 p-3 text-secondary bg-light shadow-lg">
+        
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          
+          <li>
+            <a href="orderadmin" class="nav-link text-white active ">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+              Orders
+            </a>
+          </li>
+          <li>
+            <a href="admin" class="nav-link  text-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+              Products
+            </a>
+          </li>
+          <li>
+            <a href="useradmin" class="nav-link text-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+             Users
+            </a>
+          </li>
+        </ul>
+        <hr>
+        
+      </div>
+      
+      <!-- Main Content Section (Right side) -->
+      <div class="mx-auto col-md-9 col-12">
+        <!-- User Table Component -->
+        <br>
+        
+    
+        <app-order-table  (orderNumberChange)="updateOrderNumber($event)" ></app-order-table>
+        <br>
+        <div class="row">
+            <div class="col-xl-6 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    NUMBER OF ORDERS</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{orderNumber}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-send"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  

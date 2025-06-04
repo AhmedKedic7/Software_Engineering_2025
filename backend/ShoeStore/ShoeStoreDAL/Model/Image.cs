@@ -15,5 +15,7 @@ public partial class Image
 
     public DateTime? CreatedAt { get; set; }
 
+    public int Version { get; set; }
+
     public virtual Product Product { get; set; } = null!;
 }

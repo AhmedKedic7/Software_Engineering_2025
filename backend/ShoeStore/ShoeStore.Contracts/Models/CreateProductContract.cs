@@ -15,5 +15,13 @@ namespace ShoeStore.Contracts.Models
         public string Description { get; set; }
         public decimal Price { get; set; }
         public int ColorId { get; set; }
+        public int QuantityInStock { get; set; }
+        public List<CreateImageContract> Images { get; set; } 
+
+        public class CreateImageContract
+        {
+            public string ImageUrl { get; set; }
+            public bool IsMain { get; set; }
+        }
     }
 }

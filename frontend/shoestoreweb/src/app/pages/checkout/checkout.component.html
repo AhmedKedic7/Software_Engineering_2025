@@ -1,0 +1,205 @@
+<section class="bg-light py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-8 col-lg-8 mb-4">
+
+  
+          <!-- Checkout -->
+          <div class="card shadow-sm border">
+            <div class="p-4">
+              
+  
+              <h5 class="card-title mb-3">Shipping info</h5>
+              <div *ngIf="user?.addresses && user?.addresses!.length > 0; else noAddresses">
+                <h5 class="text-secondary">Select Shipping Address</h5>
+                <div class="row d-flex">
+                  <div
+                    class="col-md-6 mb-3 h-100"
+                    *ngFor="let address of user?.addresses; let i = index"
+                  >
+                    <div
+                      class="address-card p-3 border rounded  {{ selectedAddressIndex === i ? 'selected' : '' }}"
+                      
+                      (click)="selectAddress(i)"
+                      role="button"
+                      tabindex="0"
+                    >
+                      <i class="bi bi-geo-alt-fill text-danger me-2"></i>
+                      <span>{{ address.addressLine }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Add New Address Button -->
+          <button class="btn btn-outline-primary btn-sm mt-3"  (click)="openModal()">
+            + Add New Address
+          </button>
+            
+              <ng-template #noAddresses>
+                <p>No addresses found. Please add one to continue.</p>
+              </ng-template>
+
+              <!-- <hr>
+              <div class="row mb-3">
+                <h5 class="text-secondary">Fill out the payment form</h5>
+                <form>
+                     
+                    <div class="col-md-12">
+                        <label for="cardNumber" class="form-label">Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" required>
+                    </div>
+            
+                    <div class="row">
+                    <div class="col-md-6 mt-3">
+                        <label for="expiryDate" class="form-label">Expiry Date</label>
+                        <input type="month" class="form-control" id="expiryDate" placeholder="MM/YY" required>
+                    </div>
+            
+                     
+                    <div class="col-md-6 mt-3">
+                        <label for="cvv" class="form-label">CVV</label>
+                        <input type="text" class="form-control" id="cvv" placeholder="XXX" required>
+                    </div>
+                  </div> 
+            
+                     
+                    <div class="col-md-12 mt-3">
+                        <label for="cardName" class="form-label">Name on Card</label>
+                        <input type="text" class="form-control" id="cardName" placeholder="Enter your name" required>
+                    </div>
+            
+                     
+                </form>
+            </div> -->
+              <hr>
+              <div class="row mb-3">
+                <h5 class="text-secondary">Select pickup option</h5>
+                <div class="col-lg-4 mb-3">
+                  <!-- Default checked radio -->
+                  <div class="form-check h-100 border rounded-3">
+                    <div class="p-3">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked />
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        Express delivery <br />
+                        <small class="text-muted">3-4 days via Fedex </small>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                  <!-- Default radio -->
+                  <div class="form-check h-100 border rounded-3">
+                    <div class="p-3">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        Post office <br />
+                        <small class="text-muted">20-30 days via post </small>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-4 mb-3">
+                  <!-- Default radio -->
+                  <div class="form-check h-100 border rounded-3">
+                    <div class="p-3">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" />
+                      <label class="form-check-label" for="flexRadioDefault3">
+                        Self pick-up <br />
+                        
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="float-end">
+                <button class="btn btn-light border" (click)="navigateToCart()">Cancel</button>
+                <button class="btn btn-success shadow-0 border mx-2" (click)="checkout()">Purchase now</button>
+              </div>
+            </div>
+          </div>
+          <!-- Checkout -->
+        </div>
+        <div class="card p-3 shadow-sm col-lg-4 justify-content-center justify-content-lg-start">
+          <div class="ms-lg-4 mt-4 mt-lg-0" style="max-width: 320px;">
+            <h6 class="mb-3">Summary</h6>
+            <div class="d-flex justify-content-between">
+              <p class="mb-2">Total price:</p>
+              <p class="mb-2">{{ getTotalPrice() | currency }}</p>
+            </div>
+            
+            <div class="d-flex justify-content-between">
+              <p class="mb-2">Shipping cost:</p>
+              <p class="mb-2">+ $14.00</p>
+            </div>
+            <hr />
+            <div class="d-flex justify-content-between">
+              <p class="mb-2">Total price:</p>
+              <p class="mb-2 fw-bold">{{ getFinalPrice() | currency }}</p>
+            </div>
+  
+            
+  
+            <hr />
+            <div class="d-flex justify-content-between">
+              <p class="mb-2 fw-bold">Items in the cart:</p>
+              <p class="mb-2">{{ cartItems.length }}</p>
+            </div>
+            
+  
+            <li
+          class="list-group-item d-flex justify-content-between lh-sm py-3 px-4"
+          *ngFor="let item of cartItems"
+        >
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="me-2">
+              <img [src]="getMainImage(item.product.images)" 
+              alt=""
+              style="width: 60px;
+              height: 60px; 
+              border-radius: 10%;
+              left: 0;"
+              
+              >
+            </div>
+            <div>
+              <h6 class="my-0">{{ item.product.name }}</h6>
+              
+            </div>
+
+          </div>
+          
+          <div class="d-flex flex-column align-items-end">
+            <span class="text-body-secondary">{{
+              item.product.price | currency
+            }}</span>
+            <small class="text-body-secondary">Qty: {{ item.quantity }}</small>
+          </div>
+        </li>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div *ngIf="animationState" class="lottie-container show">
+    <i class="bi bi-cart-check" style="font-size: 50px; color: rgb(0, 255, 13);" ></i>
+    <h1 class="text-white">Thank You!</h1>
+  </div>
+  <div *ngIf="isModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Add New Address</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="addressLine">Address Line</label>
+          <input type="text" id="addressLine" class="form-control" [(ngModel)]="newAddress.addressLine" required />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary mx-2" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary mx-2 " (click)="saveAddress()">Save</button>
+      </div>
+    </div>
+    
+  </div>

@@ -1,0 +1,120 @@
+<div class="container mt-4">
+    <!-- User Details -->
+    <div class="card mb-4 shadow-sm ">
+        <div class="card-body">
+          <!-- Profile Section -->
+          <div class="row align-items-center mb-4">
+            <div class="col-auto">
+              <img 
+                src="https://i.pinimg.com/236x/4d/f1/93/4df193b6dc700bd806fc0273506f8587.jpg" 
+                alt="Profile Picture" 
+                class="rounded-circle border" 
+                style="width: 96px; height: 96px;"
+              />
+            </div>
+            <div *ngIf="user; else loading" class="col">
+              <h4 class="mb-1 text-primary font-weight-bold">
+                {{ user.fullName }}
+              </h4>
+              <p class="mb-1 text-muted">
+                <strong>Email:</strong> {{ user.email }}
+              </p>
+              <p class="mb-1 text-muted">
+                <strong>Phone: +</strong> {{ user.phoneNumber }}
+              </p>
+            </div>
+          </div>
+      
+          <hr />
+      
+          <!-- Addresses Section -->
+          <div *ngIf="user?.addresses && user!.addresses.length > 0; else noAddresses">
+            <h5 class="text-secondary">Addresses</h5>
+            <div class="row">
+              <div
+                class="col-md-6 mb-3"
+                *ngFor="let address of user?.addresses"
+              >
+              <div class="address-card p-3 border rounded bg-light d-flex justify-content-between align-items-center">
+                <div class="  align-items-center">
+                    <i class="bi bi-geo-alt-fill text-danger me-2 "></i>
+                    <span>{{ address.addressLine }}</span>
+                </div>
+                <button class="btn btn-outline-danger btn-sm" (click)="openDeleteModal(address.addressId)" >
+                    <i class="bi bi-trash"></i>  
+                </button>
+            </div>
+              </div>
+            </div>
+          </div>
+      
+          <!-- No Addresses Placeholder -->
+          <ng-template #noAddresses>
+            <p class="text-muted">No addresses available. Add a new one!</p>
+          </ng-template>
+      
+          
+        </div>
+      
+        <!-- Loading Placeholder -->
+        <ng-template #loading>
+          <div class="d-flex align-items-center">
+            <div class="spinner-border text-primary me-3" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mb-0 text-muted">Loading user details...</p>
+          </div>
+        </ng-template>
+        <!-- <div>
+          <button (click)="fetchCompletion()">Get Chat Completion</button>
+          <p *ngIf="response">{{ response }}</p>
+        </div> -->
+      </div>
+        
+    <!-- Order History -->
+     <div>
+      <hr>
+      <h2 class="font-weight-bold text-muted">Your previous orders: </h2>
+      <div class="container mt-4">
+        <!-- Display orders using OrderSummaryComponent -->
+        <app-order-summary *ngIf="paginatedOrders.length > 0" [orders]="paginatedOrders"></app-order-summary>
+<p *ngIf="paginatedOrders.length === 0">No orders available.</p>
+      
+        <!-- Pagination Controls -->
+        <div class="d-flex justify-content-center mt-4">
+          <button class="btn btn-primary" (click)="prevPage()" [disabled]="currentPage === 1"><</button>
+          <span class="mx-3">Page {{ currentPage }} of {{ (totalPages)  }}</span>
+          <button class="btn btn-primary" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= totalOrders">></button>
+        </div>
+      </div>
+  </div>
+  <div *ngIf="isDeleteModalOpen" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5>Confirm Deletion</h5>
+        <button type="button" class="btn-close" (click)="closeDeleteModal()"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete this address?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary mx-2" (click)="closeDeleteModal()">Cancel</button>
+        <button type="button" class="btn btn-danger mx-2" (click)="confirmDeleteAddress()">Delete</button>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<div *ngIf="showRecommendationsModal" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5>Recommended for You</h5>
+      <button type="button" class="btn-close" (click)="closeRecommendationsModal()">x</button>
+    </div>
+    <div class="modal-body">
+      <div [innerHTML]="formattedResponse"></div>
+    </div>
+  </div>
+</div>
+

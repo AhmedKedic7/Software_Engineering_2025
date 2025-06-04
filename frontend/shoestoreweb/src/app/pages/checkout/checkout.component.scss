@@ -1,0 +1,110 @@
+.address-card {
+    cursor: pointer;  /* Makes it behave like a button */
+    transition: background-color 0.3s, transform 0.2s;
+       
+  
+  align-items: center;  
+   
+  min-height: 85px; 
+  }
+  
+  .address-card:hover {
+    background-color: #ebebeb;  /* Change background color on hover */
+    transform: scale(1.05);  /* Slightly enlarge the card on hover */
+  }
+  
+  .address-card.selected {
+    border: 2px solid #007bff;  /* Highlight selected card */
+    background-color: #cccccc;  /* Highlight color when selected */
+  }
+
+  
+  @keyframes successAnimation {
+    0% {
+      transform: scale(1);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+  
+  .lottie-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+   
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    animation: successAnimation 3s forwards;
+    overflow: hidden;
+    flex-direction: column;
+  }
+  
+  .lottie-container.show {
+    opacity: 1;
+  }
+  
+  .bi {
+    animation: iconAnimation 2s ease-in-out infinite;
+  }
+  
+  @keyframes iconAnimation {
+    0% {
+      transform: scale(3);
+    }
+    50% {
+      transform: scale(8);
+    }
+    100% {
+      transform: scale(3);
+    }
+  }
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  /* Modal content */
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 100%;
+  }
+  
+  /* Modal header */
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+  }
+  
+  /* Modal footer */
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+
+ 

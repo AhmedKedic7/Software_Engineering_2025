@@ -1,0 +1,47 @@
+<div class="container mt-4 ">
+    <div *ngFor="let order of orders" class="order-card bg-light mb-4">
+      <!-- Order Header -->
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+          <h6>Order ID: <strong>{{ order.orderId }}</strong></h6>
+          <p class="text-muted mb-0">Date: {{ order.createdAt | date: 'dd MMM yyyy' }}</p>
+        </div>
+        <div>
+          <span class="badge ">Shipped</span>
+        </div>
+      </div>
+      <hr>
+      <!-- Contact and Address Information -->
+      <div class="row">
+        <div class="col-md-4">
+          <p><strong>Contact</strong></p>
+          <p class="mb-0">{{ order.contactName }}</p>
+          <p class="mb-0">Phone: {{ order.phone }}</p>
+          <p>Email: {{ order.email }}</p>
+        </div>
+        <div class="col-md-4">
+          <p><strong>Shipping Address</strong></p>
+          <p>{{ order.shippingAddress }}</p>
+        </div>
+        <div class="col-md-4">
+          <p><strong>Payment</strong></p>
+          <p class="mb-0">Visa **** 4216</p>
+          <p class="mb-0">Shipping Fee: $14.00</p>
+          <p>Total Paid: {{ order.totalPrice +14 | currency}}</p>
+        </div>
+      </div>
+      <hr>
+      <!-- Product List -->
+      <div class="d-flex align-items-start">
+        <div class="me-3 text-center" *ngFor="let item of order.orderItems">
+          <img [src]="item.product.images[0].imageUrl" alt="{{ item.product.name }}" class="product-img mb-2" style="height: 75px; width: 75px;" >
+          <p class="small mb-0">{{ item.product.name }}</p>
+          <p class="small text-muted">{{ item.quantity }} x {{ item.product.price | currency}}</p>
+        </div>
+      </div>
+      <hr>
+      <!-- Action Buttons -->
+      
+    </div>
+  </div>
+  

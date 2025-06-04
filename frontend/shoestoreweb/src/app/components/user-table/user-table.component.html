@@ -1,0 +1,168 @@
+<div class="card shadow-lg border-0 rounded-3">
+  <!-- Card Header with H1 inside -->
+  <div class="card-header bg-dark text-white text-center py-3">
+    <h1 class="mb-0">Products</h1>
+  </div>
+  
+  <!-- Card Body containing the Table -->
+  <div class="card-body">
+    <div class="table-responsive">
+      <table datatable [dtOptions]="dtoptions" [dtTrigger]="dttrigger" class="table table-striped table-bordered table-hover" id="product-table">
+        <thead class="thead-light">
+          <tr>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>BrandID</th>
+            <th>In Stock</th>
+            <th>Size</th>
+            <th>Created At</th>
+            
+            <th>Deleted</th>
+            <th>Price</th>
+            <!-- <th>Sold</th> -->
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of productlist">
+            <td>{{ item.productId }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.brandId }}</td>
+            <td>{{ item.quantityInStock }}</td>
+            <td>{{ item.size }}</td>
+            <td>{{item.createdAt}}</td>
+            
+            <td>{{item.deletedAt  ? item.deletedAt : "False"}}</td>
+            <td>{{item.price | currency}}</td>
+            <!-- <td>{{ item.totalSold || 0 }}</td> -->
+            <td>
+               <div class="d-flex">
+              <button class="btn btn-sm btn-warning mx-1" 
+              [disabled]="item.lockedBy "
+               (click)="onEditProduct(item)">
+                <i class="bi bi-pencil-fill"></i>  
+              </button>
+              <button
+              class="btn btn-sm mx-1"
+              [disabled]="item.lockedBy "
+              [ngClass]="{'btn-danger': item?.deletedAt === null, 'btn-success': item?.deletedAt !== null}"
+              (click)="confirmDelete(item)"
+            >
+              <i class="bi" [ngClass]="{'bi-trash-fill': item?.deletedAt === null, 'bi-arrow-clockwise': item?.deletedAt !== null}"></i>
+            </button>
+            </div>
+            </td>
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="isModalVisible" class="modal">
+    <div class="modal-content" >
+      <h2 class="justify-content-center" >Edit Product</h2>
+      <p>Fill in the product details here.</p>
+      <div class="modal-body" >
+        <form (ngSubmit)="saveProduct()">
+          <div class="container"  >
+            <div class="row mb-3">
+              <div class="col-md-4">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" id="name" class="form-control" [(ngModel)]="selectedProduct.name" name="name" placeholder="Enter Product Name" required />
+              </div>
+              <div class="col-md-4">
+                <label for="size" class="form-label">Size</label>
+                <input type="text" id="size" class="form-control" [(ngModel)]="selectedProduct.size" name="size" placeholder="Enter Product Size" required />
+              </div>
+              <div class="col-md-4">
+                <label for="price" class="form-label">Price</label>
+                <input type="number" id="price" class="form-control" [(ngModel)]="selectedProduct.price" name="price" placeholder="Enter Product Price" required />
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-md-12">
+                <label for="description" class="form-label">Description</label>
+                <textarea id="description" class="form-control" [(ngModel)]="selectedProduct.description" name="description" placeholder="Enter Product Description"></textarea>
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="brandId" class="form-label">Brand ID</label>
+                <select id="brandId" class="form-select" [(ngModel)]="selectedProduct.brandId" name="brandId" required>
+                  <option *ngFor="let brand of brands" [value]="brand.id">{{ brand.name }}</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="colorId" class="form-label">Color ID</label>
+                <select id="colorId" class="form-select" [(ngModel)]="selectedProduct.colorId" name="colorId" required>
+                  <option *ngFor="let color of colors" [value]="color.id">{{ color.name }}</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="quantityInStock" class="form-label">Quantity In Stock</label>
+                <input type="number" id="quantityInStock" class="form-control" [(ngModel)]="selectedProduct.quantityInStock" name="quantityInStock" placeholder="Enter Quantity in Stock" required />
+              </div>
+              <div class="col-md-6">
+                <label for="gender" class="form-label">Gender</label>
+                <select id="gender" class="form-select" [(ngModel)]="selectedProduct.gender" name="gender" required>
+                  <option value="M">Male</option>
+                  <option value="F">Female</option>
+                  <option value="U">Unisex</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="mainImage" class="form-label">Main Image</label>
+                <input type="text" id="mainImage" class="form-control" [(ngModel)]="selectedProduct.images[0].imageUrl" name="mainImage" placeholder="Enter Main Image URL" />
+              </div>
+              <div class="col-md-6">
+                <label for="image1" class="form-label">Additional Image 1</label>
+                <input type="text" id="image1" class="form-control" [(ngModel)]="selectedProduct.images[1].imageUrl" name="image1" placeholder="Enter Image 1 URL" />
+              </div>
+            </div>
+  
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="image2" class="form-label">Additional Image 2</label>
+                <input type="text" id="image2" class="form-control" [(ngModel)]="selectedProduct.images[2].imageUrl" name="image2" placeholder="Enter Image 2 URL" />
+              </div>
+              <div class="col-md-6">
+                <label for="image3" class="form-label">Additional Image 3</label>
+                <input type="text" id="image3" class="form-control" [(ngModel)]="selectedProduct.images[3].imageUrl" name="image3" placeholder="Enter Image 3 URL" />
+              </div>
+            </div>
+  
+            <div class="row mt-3">
+              <div class="col-md-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary me-2">Save</button>
+                <button type="button" class="btn btn-secondary" (click)="closeEditModal()">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+<div *ngIf="isDeleteModalVisible" class="delete-modal">
+  <div class="modal-content" id="delete-modal">
+    <div class="modal-header"  id="delete-modal">
+      <h5>Confirm Action</h5>
+      <button type="button" class="btn-close" (click)="closeDeleteModal()"></button>
+    </div>
+    <div class="modal-body"  id="delete-modal">
+    <p>Are you sure you want to {{ itemToDelete?.deletedAt ? 'restore' : 'delete' }} this product?</p>
+  </div>
+    <div class="d-flex justify-content-end mt-3 modal-footer"  id="delete-modal">
+      <button class="btn btn-danger me-2" (click)="confirmToggleDelete()">Yes</button>
+      <button class="btn btn-secondary" (click)="closeDeleteModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
