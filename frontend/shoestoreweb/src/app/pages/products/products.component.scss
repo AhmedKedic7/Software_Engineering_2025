@@ -1,10 +1,32 @@
-
-
-  .icon-hover:hover {
-    border-color: #3b71ca !important;
-    background-color: white !important;
+@media (max-width: 1400px) {
+  .col-lg-4 {
+    flex: 0 0 45%; 
+    max-width: 45%;
   }
+}
+
+@media (max-width: 992px) {
+  .col-md-6 {
+    flex: 0 0 50%;  
+    max-width: 100%;
+  }
+}
+@media (max-width: 762px) {
+  .col-md-6 {
+    flex: 0 0 100%;  
+    max-width: 200%;
+  }
+}
+
+.filter-header {
+ 
+   /* White text */
+  font-weight: bold;
+  top: 0;
   
-  .icon-hover:hover i {
-    color: #3b71ca !important;
-  }
+  margin: 0; /* Remove margins */
+   
+   
+  border-radius: 5px 5px 0 0; /* Rounded top corners */
+}
+

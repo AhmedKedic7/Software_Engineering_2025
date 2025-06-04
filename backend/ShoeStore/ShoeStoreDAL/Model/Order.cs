@@ -15,6 +15,10 @@ public partial class Order
 
     public DateTime? DeletedAt { get; set; }
 
+    public Guid? AddressId { get; set; }
+
+    public virtual Address? Address { get; set; }
+
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
     public virtual User User { get; set; } = null!;

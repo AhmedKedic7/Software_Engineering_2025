@@ -34,13 +34,11 @@ public partial class ShoeStoreDbContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
-    public virtual DbSet<ProductVersion> ProductVersions { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=AHMED;Database=ShoeStore;Integrated Security=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=Ahmed;Database=shoestoreDB;Integrated Security=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -52,7 +50,6 @@ public partial class ShoeStoreDbContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("AddressID");
             entity.Property(e => e.AddressLine).HasColumnName("address_line");
-            entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.UserId).HasColumnName("UserID");
 
             entity.HasOne(d => d.User).WithMany(p => p.Addresses)
@@ -105,9 +102,8 @@ public partial class ShoeStoreDbContext : DbContext
                 .HasConstraintName("FK__CartItem__CartID__5CD6CB2B");
 
             entity.HasOne(d => d.Product).WithMany(p => p.CartItems)
-                .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__CartItem__Produc__5DCAEF64");
+                .HasForeignKey(d => new { d.ProductId, d.Version })
+                .HasConstraintName("FK_CartItem_Products");
         });
 
         modelBuilder.Entity<Color>(entity =>
@@ -127,11 +123,12 @@ public partial class ShoeStoreDbContext : DbContext
                 .HasColumnType("datetime");
             entity.Property(e => e.ImageUrl).HasColumnName("ImageURL");
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            entity.Property(e => e.Version).HasDefaultValue(1);
 
             entity.HasOne(d => d.Product).WithMany(p => p.Images)
-                .HasForeignKey(d => d.ProductId)
+                .HasForeignKey(d => new { d.ProductId, d.Version })
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Images__ProductI__74AE54BC");
+                .HasConstraintName("FK_Images_Products");
         });
 
         modelBuilder.Entity<Order>(entity =>
@@ -141,10 +138,15 @@ public partial class ShoeStoreDbContext : DbContext
             entity.Property(e => e.OrderId)
                 .ValueGeneratedNever()
                 .HasColumnName("OrderID");
+            entity.Property(e => e.AddressId).HasColumnName("AddressID");
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.DeletedAt).HasColumnType("datetime");
             entity.Property(e => e.TotalPrice).HasColumnType("money");
             entity.Property(e => e.UserId).HasColumnName("UserID");
+
+            entity.HasOne(d => d.Address).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.AddressId)
+                .HasConstraintName("FK_Orders_Addresses");
 
             entity.HasOne(d => d.User).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.UserId)
@@ -160,7 +162,6 @@ public partial class ShoeStoreDbContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("OrderItemID");
             entity.Property(e => e.OrderId).HasColumnName("OrderID");
-            entity.Property(e => e.Price).HasColumnType("money");
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderItems)
@@ -169,18 +170,25 @@ public partial class ShoeStoreDbContext : DbContext
                 .HasConstraintName("FK__OrderItem__Order__49C3F6B7");
 
             entity.HasOne(d => d.Product).WithMany(p => p.OrderItems)
-                .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__OrderItem__Produ__4AB81AF0");
+                .HasForeignKey(d => new { d.ProductId, d.Version })
+                .HasConstraintName("FK_OrderItems_Products");
         });
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Products__B40CC6EDE13CF6B5");
+            entity.HasKey(e => new { e.ProductId, e.Version });
 
-            entity.Property(e => e.ProductId)
-                .ValueGeneratedNever()
-                .HasColumnName("ProductID");
+            entity.ToTable(tb =>
+            {
+                tb.HasTrigger("InsertImagesOnProductInsert");
+                tb.HasTrigger("UpdateIsLastTrigger");
+                tb.HasTrigger("trg_SetPreviousVersionNotLast");
+            });
+
+            entity.HasIndex(e => new { e.ProductId, e.Version }, "UQ_Product_Version").IsUnique();
+
+            entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            entity.Property(e => e.Version).HasDefaultValue(1);
             entity.Property(e => e.BrandId).HasColumnName("BrandID");
             entity.Property(e => e.ColorId).HasColumnName("ColorID");
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
@@ -189,6 +197,7 @@ public partial class ShoeStoreDbContext : DbContext
                 .HasMaxLength(1)
                 .IsUnicode(false)
                 .IsFixedLength();
+            entity.Property(e => e.IsLast).HasDefaultValue(true);
             entity.Property(e => e.Price).HasColumnType("money");
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
@@ -201,19 +210,10 @@ public partial class ShoeStoreDbContext : DbContext
                 .HasForeignKey(d => d.ColorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Products__ColorI__2A4B4B5E");
-        });
-
-        modelBuilder.Entity<ProductVersion>(entity =>
-        {
-            entity.HasKey(e => e.VersionId).HasName("PK__ProductV__16C6402F44765594");
-
-            entity.Property(e => e.VersionId).HasColumnName("VersionID");
-            entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.ProductVersions)
-                .HasForeignKey(d => d.ProductId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ProductVe__Produ__2D27B809");
+           // modelBuilder.Entity<Product>()
+           //.Property(p => p.LockedBy)
+           //.HasColumnType("uniqueidentifier")
+           //.IsRequired(false);  
         });
 
         modelBuilder.Entity<User>(entity =>
@@ -225,6 +225,7 @@ public partial class ShoeStoreDbContext : DbContext
                 .HasColumnName("UserID");
             entity.Property(e => e.CreatedAt).HasColumnType("datetime");
             entity.Property(e => e.DeletedAt).HasColumnType("datetime");
+            entity.Property(e => e.PhoneNumber).HasMaxLength(15);
             entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
         });
 

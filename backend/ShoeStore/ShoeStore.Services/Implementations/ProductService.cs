@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using ShoeStore.Repository.Interfaces;
 using ShoeStore.Contracts.Models;
 using ShoeStore.Repository.Model;
+using System.Runtime.InteropServices;
+using Microsoft.EntityFrameworkCore;
 
 namespace ShoeStore.Services.Implementations
 {
@@ -49,17 +51,85 @@ namespace ShoeStore.Services.Implementations
                 Description = createProductContract.Description,
                 Price = createProductContract.Price,
                 CreatedAt = DateTime.UtcNow,
-                ColorId = createProductContract.ColorId
+                ColorId = createProductContract.ColorId,
+                QuantityInStock = createProductContract.QuantityInStock,
+                IsLast = true,
             };
-
-            
-
-            
 
             await _productRepository.AddProductAsync(product);
 
             return _mapper.Map<ProductContract>(product);
         }
+
+        public async Task<(IEnumerable<ProductContract> Products, int TotalCount)> GetFilteredProductsAsync(ProductFilterContract filterDto)
+        {
+            var (products, totalCount) = await _productRepository.GetFilteredProductsAsync(filterDto);
+            var productContracts = _mapper.Map<IEnumerable<ProductContract>>(products);
+            return (productContracts, totalCount);
+        }
+
+        public async Task<SoldProductContract> GetSoldProductsAsync(Guid productId )
+        {
+             
+            var soldProducts = await _productRepository.GetSoldProductsAsync(productId);
+
+             
+            return soldProducts;
+        }
+
+        public async Task AddImageAsync(Image image)
+        {
+            await _productRepository.AddAsync(image);
+        }
+
+        public async Task<Product> CreateNewVersionAsync(UpdateProductContract request)
+        {
+             
+            var latestProductVersion = await _productRepository.GetLatestProductVersionAsync(request.ProductId);
+
+            
+            var newVersion = latestProductVersion == null ? 1 : latestProductVersion + 1;
+
+             
+            var newProduct = _mapper.Map<Product>(request);
+            newProduct.CreatedAt = DateTime.UtcNow;
+            newProduct.Version = newVersion;
+
+            
+            try
+            {
+                await _productRepository.AddProductAsync(newProduct);
+            }
+            catch (Exception ex)
+            {
+                 
+                Console.WriteLine($"Error adding product: {ex.Message}");
+            }
+            return newProduct;
+
+        }
+
+        public async Task<Product> UpdateDeletedAtAsync(Guid productId, int version, DateTime? deletedAt)
+        {
+            return await _productRepository.UpdateDeletedAtAsync(productId, version, deletedAt);
+        }
+
+        public async Task<List<ProductContract>> GetLatestProductsAsync(int count)
+        {
+            var products = await _productRepository.GetLatestProductsAsync(count);
+            return _mapper.Map<List<ProductContract>>(products); 
+        }
+
+        public async Task<bool> LockProductAsync(Guid productId, Guid adminId)
+        {
+            return await _productRepository.LockProductAsync(productId, adminId);
+        }
+
+        public async Task<bool> UnlockProductAsync(Guid productId, Guid adminId)
+        {
+            return await _productRepository.UnlockProductAsync(productId, adminId);
+        }
+
     }
 
 }

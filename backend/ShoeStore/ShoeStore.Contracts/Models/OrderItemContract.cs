@@ -11,11 +11,9 @@ public class OrderItemContract
 
     public Guid ProductId { get; set; }
 
-    public int Quantity { get; set; }
+    public int Quantity { get; set;  }
 
-    public decimal Price { get; set; }
+    public ProductContract Product { get; set; }
 
-    public virtual OrderContract Order { get; set; } = null!;
 
-    public virtual ProductContract Product { get; set; } = null!;
 }

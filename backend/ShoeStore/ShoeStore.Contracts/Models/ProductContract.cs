@@ -26,11 +26,16 @@ public class ProductContract
 
     public DateTime? DeletedAt { get; set; }
 
-    public int ColorId { get; set; }
+    public int Version { get; set; }
 
+    public int ColorId { get; set; }
+    public int QuantityInStock { get; set; }
+    public Guid? LockedBy { get; set; }
     public string BrandName { get; set; } = null!;
 
     public string ColorName { get; set; } = null!;
+
+    public short IsLast { get; set; }
 
     public virtual ICollection<ImageContract> Images { get; set; } = new List<ImageContract>();
     

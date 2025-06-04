@@ -1,5 +1,4 @@
-﻿using ShoeStore.Contracts.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ShoeStore.Repository.Model;
@@ -25,6 +24,8 @@ public partial class User
     public DateTime? UpdatedAt { get; set; }
 
     public DateTime? DeletedAt { get; set; }
+
+    public string? PhoneNumber { get; set; }
 
     public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
 

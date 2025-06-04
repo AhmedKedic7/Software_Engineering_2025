@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
+using ShoeStore.Contracts.Models;
+using ShoeStore.Repository.Model;
+using ShoeStore.Services.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +12,107 @@ namespace ShoeStore.Controllers
     [ApiController]
     public class Carts : ControllerBase
     {
-        // GET: api/<Carts>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly ICartService _cartService;
+
+        public Carts(ICartService cartService)
         {
-            return new string[] { "value23322", "value2132132" };
+            _cartService = cartService ?? throw new ArgumentNullException(nameof(cartService));
+        }
+        private Guid GetUserIdFromRequest(AddItemToCartRequest request)
+        {
+            // If you have a UserId in the request body, you can access it here.
+            if (request == null || request.UserId == Guid.Empty)
+            {
+                throw new ArgumentException("UserId is required in the request.");
+            }
+
+            return request.UserId;
         }
 
-        // GET api/<Carts>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+
+        [HttpPost("add-item")]
+        public async Task<IActionResult> AddItemToCart([FromBody] AddItemToCartRequest request)
         {
-            return "value";
+            
+            try
+            {
+               
+                await _cartService.AddItemToCartAsync(request.UserId, request.ProductId, request.Quantity);
+                await _cartService.ProcessCartActivityAsync();
+                return NoContent();  
+            }
+            catch (Exception ex)
+            {
+                
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
-        // POST api/<Carts>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        // Remove an item from the cart
+        [HttpDelete("remove-item/{cartItemId}")]
+        public async Task<IActionResult> RemoveItemFromCart(Guid cartItemId)
         {
+            try
+            {
+                await _cartService.RemoveItemFromCartAsync(cartItemId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
-        // PUT api/<Carts>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        // Checkout the cart
+        [HttpPost("checkout/{cartId}")]
+        public async Task<IActionResult> Checkout(Guid cartId)
         {
+            try
+            {
+                await _cartService.CheckoutAsync(cartId);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
-        // DELETE api/<Carts>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // Get cart details by userId
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetCartByUserId(Guid userId)
         {
+            try
+            {
+                var cart = await _cartService.GetCartByUserIdAsync(userId);
+                if (cart == null)
+                {
+                    return NotFound("Cart not found.");
+                }
+                 
+                return Ok(cart);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPut("update-item-quantity")]
+        public async Task<IActionResult> UpdateCartItemQuantity([FromBody] UpdateQuantityRequest request)
+        {
+            try
+            {
+                await _cartService.UpdateCartItemQuantityAsync(request.CartItemId, request.Quantity);
+
+               
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
     }
 }

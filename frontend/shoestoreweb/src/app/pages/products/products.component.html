@@ -12,8 +12,8 @@
       </h6>
     </nav>
     <hr>
-    <!-- Breadcrumb -->
-    <h3 class="text-secondary mt-2">All Shoes</h3>
+    
+    
     
   </div>
 </div>
@@ -21,192 +21,213 @@
   <div class="container">
     <div class="row">
       <!-- sidebar -->
-      <div class="col-lg-3">
-        <!-- Toggle button -->
-        <button class="btn btn-outline-secondary mb-3 w-100 d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-expanded="false" aria-controls="navbarSupportedContent">
-          <span>Show filter</span>
-        </button>
-        <!-- Collapsible wrapper -->
-        <div class="collapse card d-lg-block mb-5 shadow-sm" id="navbarSupportedContent">
-          <div class="accordion" id="accordionPanelsStayOpenExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Gender
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
-                <div class="accordion-body">
-                  <ul class="list-unstyled">
-                    <div class="form-check form-switch">
-                    <li><input class="form-check-input" type="checkbox"  id="M" (change)="onGenderChange($event)"/> <label  for="men">Men</label></li>
-                  </div>
-                  <div class="form-check form-switch">
-                    <li><input class="form-check-input" type="checkbox" id="F" (change)="onGenderChange($event)"/> <label for="women">Women</label></li>
-                  </div>
-                  <div class="form-check form-switch">
-                    <li><input class="form-check-input" type="checkbox" id="U" (change)="onGenderChange($event)"/> <label for="unisex">Unisex</label></li>
-                  </div>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwo">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                  Brands
-                </button>
-              </h2>
-              <div id="collapseTwo" class="accordion-collapse collapse show" aria-labelledby="headingTwo">
-                <div class="accordion-body">
-                  <div>
-                    <!-- Checked checkbox -->
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox"  id="Nike"  (change)="onBrandChange($event)" />
-                      <label class="form-check-label" for="flexCheckChecked1" >Nike</label>
-                      
-                    </div>
-                    <!-- Checked checkbox -->
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="Adidas"  (change)="onBrandChange($event)" />
-                      <label class="form-check-label" for="flexCheckChecked2">Adidas</label>
-                      
-                    </div>
-                    <!-- Checked checkbox -->
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="Jordan"  (change)="onBrandChange($event)" />
-                      <label class="form-check-label" for="flexCheckChecked3">Jordan</label>
-                      
-                    </div>
-                    <!-- Checked checkbox -->
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="Vans"  (change)="onBrandChange($event)"/>
-                      <label class="form-check-label" for="flexCheckChecked4">Vans</label>
-                      
-                    </div>
-                    <!-- Default checkbox -->
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="New Balance"  (change)="onBrandChange($event)" />
-                      <label class="form-check-label" for="flexCheckDefault">New Balance</label>
-                      
-                    </div>
-                    <!-- Default checkbox -->
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="" id="Puma"  (change)="onBrandChange($event)" />
-                      <label class="form-check-label" for="flexCheckDefault">Puma</label>
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-                  Price
-                </button>
-              </h2>
-              <div id="collapseThree" class="accordion-collapse collapse show" aria-labelledby="headingThree">
-                <div class="accordion-body">
-                  
-                  <div class="row mb-3">
-                    <div class="col-6">
-                      <p class="mb-0">
-                        Min
-                      </p>
-                      <div class="form-outline">
-                        <input type="number" id="typeNumber" class="form-control" [(ngModel)]="priceRange.min" />
-                        <label class="form-label" for="typeNumber"></label>
-                      </div>
-                    </div>
-                    <div class="col-6">
-                      <p class="mb-0">
-                        Max
-                      </p>
-                      <div class="form-outline">
-                        <input type="number" id="typeNumber" class="form-control" [(ngModel)]="priceRange.max"/>
-                        <label class="form-label" for="typeNumber"></label>
-                      </div>
-                    </div>
-                  </div>
-                  <button type="button" class="btn  w-100 border border-secondary hover" (click)="onPriceChange(priceRange.min, priceRange.max)">Apply</button>
-                </div>
-              </div>
-            </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingThree">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
-                  Size
-                </button>
-              </h2>
-              <div id="collapseFour" class="accordion-collapse collapse show" aria-labelledby="headingThree">
-                <div class="accordion-body">
-                  <ul class="list-unstyled row g-4" id="shoe-size">
-                    <!-- Column 1 -->
-                    <div class="col-3 mb-2 p-2">
-                      <input type="checkbox" class="btn-check" id="size36" (change)="onSizeChange($event)">
-                      <label class="btn btn-outline-primary" for="size36">36</label><br>
-                      <input type="checkbox" class="btn-check" id="size37" (change)="onSizeChange($event)">
-                      <label class="btn btn-outline-primary" for="size37">37</label><br>
-                      <input type="checkbox" class="btn-check" id="size38" (change)="onSizeChange($event)">
-                      <label class="btn btn-outline-primary" for="size38">38</label><br>
-                    </div>
-                
-                    <!-- Column 2 -->
-                    <div class="col-3 mb-2 p-2">
-                      <input type="checkbox" class="btn-check" id="size39" (change)="onSizeChange($event)">
-                      <label class="btn btn-outline-primary" for="size39">39</label><br>
-                      <input type="checkbox" class="btn-check" id="size40" (change)="onSizeChange($event)">
-                      <label class="btn btn-outline-primary" for="size40">40</label><br>
-                      <input type="checkbox" class="btn-check" id="size41" (change)="onSizeChange($event)">
-                      <label class="btn btn-outline-primary" for="size41">41</label><br>
-                    </div>
-                
-                    <!-- Column 3 -->
-                    <div class="col-3 mb-2 p-2">
-                      <input type="checkbox" class="btn-check" id="size42" (change)="onSizeChange($event)">
-                      <label class="btn btn-outline-primary" for="size42">42</label><br>
-                      <input type="checkbox" class="btn-check" id="size43" (change)="onSizeChange($event)">
-                      <label class="btn btn-outline-primary" for="size43">43</label><br>
-                      <input type="checkbox" class="btn-check" id="size44" (change)="onSizeChange($event)">
-                      <label class="btn btn-outline-primary" for="size44">44</label><br>
-                    </div>
-                
-                    <!-- Column 4 -->
-                    <div class="col-3 mb-2 p-2">
-                      <input type="checkbox" class="btn-check" id="size45" (change)="onSizeChange($event)">
-                      <label class="btn btn-outline-primary" for="size45">45</label><br>
-                      <input type="checkbox" class="btn-check" id="size46" (change)="onSizeChange($event)">
-                      <label class="btn btn-outline-primary" for="size46">46</label><br>
-                      <input type="checkbox" class="btn-check" id="size47" (change)="onSizeChange($event)">
-                      <label class="btn btn-outline-primary" for="size47">47</label><br>
-                    </div>
-                  </ul>
-                </div>
-                
-              </div>
-            </div>
-            
-          </div>
+      <!-- Sidebar -->
+<div class="col-lg-3">
+  <!-- Sidebar Wrapper -->
+  <div class="card mb-5 shadow-sm p-3">
+    <!-- Gender Filter -->
+    <div class="mb-4">
+      <div class="filter-header text-muted  rounded">
+        <h5 class="fw-bold mb-0">Filter by Gender</h5>
+      </div>
+      <hr>
+      <ul class="list-unstyled">
+        <div class="form-check form-switch">
+          <li>
+            <input class="form-check-input" type="checkbox" id="M" (change)="onGenderChange($event)" />
+            <label for="M" class="form-check-label">Men</label>
+          </li>
+        </div>
+        <div class="form-check form-switch">
+          <li>
+            <input class="form-check-input" type="checkbox" id="F" (change)="onGenderChange($event)" />
+            <label for="F" class="form-check-label">Women</label>
+          </li>
+        </div>
+        <div class="form-check form-switch">
+          <li>
+            <input class="form-check-input" type="checkbox" id="U" (change)="onGenderChange($event)" />
+            <label for="U" class="form-check-label">Unisex</label>
+          </li>
+        </div>
+      </ul>
+    </div>
+    
+    <!-- Brands Filter -->
+    <div class="mb-4">
+      <div class="filter-header text-muted  rounded">
+        <h5 class="fw-bold mb-0">Filter by Brand</h5>
+      </div>
+      <hr>
+      <ul class="list-unstyled">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="Nike" (change)="onBrandChange($event)" />
+          <label class="form-check-label" for="Nike">Nike</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="Adidas" (change)="onBrandChange($event)" />
+          <label class="form-check-label" for="Adidas">Adidas</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="Jordan" (change)="onBrandChange($event)" />
+          <label class="form-check-label" for="Jordan">Jordan</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="Vans" (change)="onBrandChange($event)" />
+          <label class="form-check-label" for="Vans">Vans</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="New Balance" (change)="onBrandChange($event)" />
+          <label class="form-check-label" for="New Balance">New Balance</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="Puma" (change)="onBrandChange($event)" />
+          <label class="form-check-label" for="Puma">Puma</label>
+        </div>
+      </ul>
+    </div>
+
+    <!-- Price Filter -->
+    <div class="mb-4">
+      <div class="filter-header text-muted  rounded">
+        <h5 class="fw-bold mb-0">Filter by Price</h5>
+      </div>
+      <hr>
+      <div class="row g-2">
+        <div class="col-6">
+          <label for="minPrice" class="form-label mb-1">Min</label>
+          <input type="number" id="minPrice" class="form-control" [(ngModel)]="priceRange.min" />
+        </div>
+        <div class="col-6">
+          <label for="maxPrice" class="form-label mb-1">Max</label>
+          <input type="number" id="maxPrice" class="form-control" [(ngModel)]="priceRange.max" />
         </div>
       </div>
+      <button type="button" class="btn btn-outline-secondary mt-3 w-100" (click)="onPriceChange(priceRange.min, priceRange.max)">Apply</button>
+    </div>
+
+    <!-- Size Filter -->
+    <div>
+      <div class="filter-header text-muted  rounded">
+        <h5 class="fw-bold mb-0">Filter by Size</h5>
+      </div>
+      <hr>
+      <div class="row g-2">
+        <!-- Loop over sizes to avoid repetition -->
+        <div class="col-4" *ngFor="let size of [36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]">
+          <input type="checkbox" class="btn-check" id="size{{size}}" (change)="onSizeChange($event)" />
+          <label class="btn btn-outline-primary w-100" for="size{{size}}">{{size}}</label>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="text-center mt-3">
+      <button class="btn btn-danger w-100" (click)="clearFilters()">Clear Filters</button>
+    </div>
+  </div>
+  
+</div>
+
       <!-- sidebar -->
       <!-- content -->
       <div class="col-lg-9">
-        <header class="d-sm-flex justify-content-end border-bottom mb-4 pb-3">
-          <strong class="d-block py-2 ">{{dataCount}} Items found </strong>
-          
+        <header class="d-sm-flex justify-content-between align-items-center border-bottom mb-4 pb-3">
+          <strong class="d-block py-2 text-end">{{dataCount}} Items</strong>
+          <div class="mb-0 d-flex align-items-center ">
+            <label for="sort" class="form-label mb-0 me-3 col-3">Sort by</label>
+            <select id="sort" class="form-select" (change)="onSortChange($event)">
+              <option value="az">A-Z</option>
+              <option value="za">Z-A</option>
+              <option value="priceLowHigh">Price: Low to High</option>
+              <option value="priceHighLow">Price: High to Low</option>
+            </select>
+            
+          </div>
+         
         </header>
-
+        <div class="container-fluid">
+        
         <div class="row">
+          <div *ngFor="let product of products" class="col-lg-4 col-md-6 col-sm-12 mb-4 d-flex justify-content-center ">
+            <app-shoe-card [product]="product" ></app-shoe-card>
+          </div>
+        </div>
+      </div>
+    
+        <!-- <div class="row">
           <div *ngFor="let product of getPaginatedItems()" class="col-lg-4 col-md-6 col-sm-6 d-flex mb-2">
             <app-shoe-card [product]="product"></app-shoe-card>
           </div>
-        </div>
+        </div> -->
+
 
         <hr />
-
+       
+        <nav aria-label="Page navigation" class="d-flex flex-column align-items-center mt-3">
+          <!-- Items per Page Dropdown -->
+          <div class="d-flex align-items-center mb-2">
+            <label for="itemsPerPage" class="me-2 mb-0">Items per page:</label>
+            <select
+              id="itemsPerPage"
+              class="form-select form-select-sm w-auto"
+              [(ngModel)]="itemsPerPage"
+              (change)="onItemsPerPageChange($event)"
+            >
+              <option *ngFor="let option of [9, 12, 15]" [value]="option">{{ option }}</option>
+            </select>
+          </div>
+        
+          <!-- Pagination Controls -->
+          <ul class="pagination m-0">
+            <!-- Previous Page -->
+            <li class="page-item" [class.disabled]="currentPage === 1">
+              <a
+                class="page-link"
+                href="javascript:void(0);"
+                (click)="prevPage()"
+                aria-label="Previous"
+              >
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+        
+            <!-- Page Numbers -->
+            <li
+              class="page-item"
+              *ngFor="let page of getPagesArray(); let i = index"
+              [class.active]="i + 1 === currentPage"
+            >
+              <a
+                class="page-link"
+                href="javascript:void(0);"
+                (click)="changePage(i + 1)"
+              >
+                {{ i + 1 }}
+              </a>
+            </li>
+        
+            <!-- Next Page -->
+            <li class="page-item" [class.disabled]="currentPage === totalPages">
+              <a
+                class="page-link"
+                href="javascript:void(0);"
+                (click)="nextPage()"
+                aria-label="Next"
+              >
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        
         <!-- Pagination -->
-        <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
+        <!-- <nav aria-label="Page navigation example" class="d-flex justify-content-center mt-3">
+          <div class="d-flex justify-content-center mt-3">
+            <label for="itemsPerPage" class="me-2">Items per page:</label>
+            <select id="itemsPerPage" class="form-select w-auto" [(ngModel)]="itemsPerPage" (change)="onItemsPerPageChange($event)">
+              <option *ngFor="let option of [9, 12, 15,]" [value]="option">{{ option }}</option>
+            </select>
+          </div>
           <ul class="pagination">
             <li class="page-item" [class.disabled]="currentPage === 1">
               <a class="page-link" href="javascript:void(0);" (click)="prevPage()" aria-label="Previous">
@@ -214,7 +235,7 @@
               </a>
             </li>
         
-            <li class="page-item" *ngFor="let page of [].constructor(totalPages); let i = index" [class.active]="i + 1 === currentPage">
+            <li class="page-item" *ngFor="let page of getPagesArray(); let i = index" [class.active]="i + 1 === currentPage">
               <a class="page-link" href="javascript:void(0);" (click)="changePage(i + 1)">{{ i + 1 }}</a>
             </li>
         
@@ -224,7 +245,9 @@
               </a>
             </li>
           </ul>
-        </nav>
+          
+        </nav> -->
+        
         <!-- Pagination -->
       </div>
     </div>

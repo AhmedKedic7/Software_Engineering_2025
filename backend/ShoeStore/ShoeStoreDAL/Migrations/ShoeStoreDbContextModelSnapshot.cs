@@ -17,7 +17,7 @@ namespace ShoeStore.Repository.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.4")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -33,9 +33,8 @@ namespace ShoeStore.Repository.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("address_line");
 
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("order_id");
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier")
@@ -118,12 +117,15 @@ namespace ShoeStore.Repository.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int?>("Version")
+                        .HasColumnType("int");
+
                     b.HasKey("CartItemId")
                         .HasName("PK__CartItem__488B0B2A6056BEC8");
 
                     b.HasIndex("CartId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId", "Version");
 
                     b.ToTable("CartItem", (string)null);
                 });
@@ -173,10 +175,15 @@ namespace ShoeStore.Repository.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("ProductID");
 
+                    b.Property<int>("Version")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
+
                     b.HasKey("ImageId")
                         .HasName("PK__Images__7516F4EC3A7AD4DB");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId", "Version");
 
                     b.ToTable("Images");
                 });
@@ -186,6 +193,10 @@ namespace ShoeStore.Repository.Migrations
                     b.Property<Guid>("OrderId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("OrderID");
+
+                    b.Property<Guid?>("AddressId")
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("AddressID");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime");
@@ -203,6 +214,8 @@ namespace ShoeStore.Repository.Migrations
                     b.HasKey("OrderId")
                         .HasName("PK__Orders__C3905BAF0C933DBA");
 
+                    b.HasIndex("AddressId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
@@ -218,9 +231,6 @@ namespace ShoeStore.Repository.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("OrderID");
 
-                    b.Property<decimal>("Price")
-                        .HasColumnType("money");
-
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("ProductID");
@@ -228,12 +238,15 @@ namespace ShoeStore.Repository.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
+                    b.Property<int?>("Version")
+                        .HasColumnType("int");
+
                     b.HasKey("OrderItemId")
                         .HasName("PK__OrderIte__57ED06A1F4D9C7CF");
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductId");
+                    b.HasIndex("ProductId", "Version");
 
                     b.ToTable("OrderItems");
                 });
@@ -243,6 +256,11 @@ namespace ShoeStore.Repository.Migrations
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier")
                         .HasColumnName("ProductID");
+
+                    b.Property<int>("Version")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.Property<int>("BrandId")
                         .HasColumnType("int")
@@ -269,6 +287,14 @@ namespace ShoeStore.Repository.Migrations
                         .HasColumnType("char(1)")
                         .IsFixedLength();
 
+                    b.Property<bool>("IsLast")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<Guid?>("LockedBy")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -276,47 +302,34 @@ namespace ShoeStore.Repository.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("money");
 
+                    b.Property<int?>("QuantityInStock")
+                        .HasColumnType("int");
+
                     b.Property<int>("Size")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime");
 
-                    b.HasKey("ProductId")
-                        .HasName("PK__Products__B40CC6EDE13CF6B5");
+                    b.HasKey("ProductId", "Version");
 
                     b.HasIndex("BrandId");
 
                     b.HasIndex("ColorId");
 
-                    b.ToTable("Products");
-                });
+                    b.HasIndex(new[] { "ProductId", "Version" }, "UQ_Product_Version")
+                        .IsUnique();
 
-            modelBuilder.Entity("ShoeStore.Repository.Model.ProductVersion", b =>
-                {
-                    b.Property<int>("VersionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("VersionID");
+                    b.ToTable("Products", t =>
+                        {
+                            t.HasTrigger("InsertImagesOnProductInsert");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VersionId"));
+                            t.HasTrigger("UpdateIsLastTrigger");
 
-                    b.Property<short>("IsLast")
-                        .HasColumnType("smallint");
+                            t.HasTrigger("trg_SetPreviousVersionNotLast");
+                        });
 
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ProductID");
-
-                    b.Property<int>("Version")
-                        .HasColumnType("int");
-
-                    b.HasKey("VersionId")
-                        .HasName("PK__ProductV__16C6402F44765594");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductVersions");
+                    b.HasAnnotation("SqlServer:UseSqlOutputClause", false);
                 });
 
             modelBuilder.Entity("ShoeStore.Repository.Model.User", b =>
@@ -352,6 +365,10 @@ namespace ShoeStore.Repository.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime");
@@ -394,9 +411,8 @@ namespace ShoeStore.Repository.Migrations
 
                     b.HasOne("ShoeStore.Repository.Model.Product", "Product")
                         .WithMany("CartItems")
-                        .HasForeignKey("ProductId")
-                        .IsRequired()
-                        .HasConstraintName("FK__CartItem__Produc__5DCAEF64");
+                        .HasForeignKey("ProductId", "Version")
+                        .HasConstraintName("FK_CartItem_Products");
 
                     b.Navigation("Cart");
 
@@ -407,20 +423,27 @@ namespace ShoeStore.Repository.Migrations
                 {
                     b.HasOne("ShoeStore.Repository.Model.Product", "Product")
                         .WithMany("Images")
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("ProductId", "Version")
                         .IsRequired()
-                        .HasConstraintName("FK__Images__ProductI__74AE54BC");
+                        .HasConstraintName("FK_Images_Products");
 
                     b.Navigation("Product");
                 });
 
             modelBuilder.Entity("ShoeStore.Repository.Model.Order", b =>
                 {
+                    b.HasOne("ShoeStore.Repository.Model.Address", "Address")
+                        .WithMany("Orders")
+                        .HasForeignKey("AddressId")
+                        .HasConstraintName("FK_Orders_Addresses");
+
                     b.HasOne("ShoeStore.Repository.Model.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .IsRequired()
                         .HasConstraintName("FK__Orders__UserID__35BCFE0A");
+
+                    b.Navigation("Address");
 
                     b.Navigation("User");
                 });
@@ -435,9 +458,8 @@ namespace ShoeStore.Repository.Migrations
 
                     b.HasOne("ShoeStore.Repository.Model.Product", "Product")
                         .WithMany("OrderItems")
-                        .HasForeignKey("ProductId")
-                        .IsRequired()
-                        .HasConstraintName("FK__OrderItem__Produ__4AB81AF0");
+                        .HasForeignKey("ProductId", "Version")
+                        .HasConstraintName("FK_OrderItems_Products");
 
                     b.Navigation("Order");
 
@@ -463,15 +485,9 @@ namespace ShoeStore.Repository.Migrations
                     b.Navigation("Color");
                 });
 
-            modelBuilder.Entity("ShoeStore.Repository.Model.ProductVersion", b =>
+            modelBuilder.Entity("ShoeStore.Repository.Model.Address", b =>
                 {
-                    b.HasOne("ShoeStore.Repository.Model.Product", "Product")
-                        .WithMany("ProductVersions")
-                        .HasForeignKey("ProductId")
-                        .IsRequired()
-                        .HasConstraintName("FK__ProductVe__Produ__2D27B809");
-
-                    b.Navigation("Product");
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("ShoeStore.Repository.Model.Brand", b =>
@@ -501,8 +517,6 @@ namespace ShoeStore.Repository.Migrations
                     b.Navigation("Images");
 
                     b.Navigation("OrderItems");
-
-                    b.Navigation("ProductVersions");
                 });
 
             modelBuilder.Entity("ShoeStore.Repository.Model.User", b =>
