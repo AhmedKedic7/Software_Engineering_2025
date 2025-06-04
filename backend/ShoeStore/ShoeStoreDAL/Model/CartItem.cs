@@ -15,7 +15,11 @@ public partial class CartItem
 
     public DateTime CreatedAt { get; set; }
 
+    public int? Version { get; set; }
+
     public virtual Cart Cart { get; set; } = null!;
 
     public virtual Product Product { get; set; } = null!;
+
+    //public virtual Product? ProductNavigation { get; set; }
 }

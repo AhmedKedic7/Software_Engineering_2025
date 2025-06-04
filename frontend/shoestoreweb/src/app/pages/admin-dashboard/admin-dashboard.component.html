@@ -1,0 +1,82 @@
+<div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar Section (Left side) -->
+      <div class="col-md-2 col-12 d-flex flex-column flex-shrink-0 p-3 text-secondary bg-light shadow-lg">
+        
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          
+          <li>
+            <a href="orderadmin" class="nav-link text-dark ">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+              Orders
+            </a>
+          </li>
+          <li>
+            <a href="admin" class="nav-link text-white active">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+              Products
+            </a>
+          </li>
+          <li>
+            <a href="useradmin" class="nav-link text-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+              Users
+            </a>
+          </li>
+        </ul>
+        <hr>
+        
+      </div>
+      
+      <!-- Main Content Section (Right side) -->
+      <div class="mx-auto col-md-9 col-12">
+        <!-- User Table Component -->
+         <br>
+        <div class="row">
+        <div class="col-xl-5 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                NUMBER OF PRODUCTS</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{productNumber}}</div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-7 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                               ADD NEW PRODUCT</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Click on the button to add new products.</div>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-outline-primary" (click)="openModal()" >Add new product<i class="bi bi-plus"></i></button>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <app-user-table  (productNumberChange)="updateProductNumber($event)" ></app-user-table>
+      </div>
+      <app-product-modal
+  *ngIf="isModalOpen"
+  (close)="closeModal()">
+</app-product-modal>
+    </div>
+    
+  </div>
+  
+  

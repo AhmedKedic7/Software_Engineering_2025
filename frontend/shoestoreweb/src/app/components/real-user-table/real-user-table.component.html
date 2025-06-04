@@ -1,0 +1,36 @@
+<div class="card shadow-lg border-0 rounded-3">
+    <!-- Card Header with H1 inside -->
+    <div class="card-header bg-dark text-white text-center py-3">
+      <h1 class="mb-0">Users</h1>
+    </div>
+  
+    <!-- Card Body containing the Table -->
+    <div class="card-body">
+      <div class="table-responsive">
+        <table datatable [dtOptions]="dtoptions" [dtTrigger]="dttrigger" class="table table-striped table-bordered table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th>User ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Admin</th>
+              <th>Logged in</th>
+               
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userlist">
+              <td>{{ user.userId }}</td>
+              <td>{{ user.firstName }} {{user.lastName}}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.isAdmin }}</td>
+              <td>{{ user.isLogedin}}</td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  

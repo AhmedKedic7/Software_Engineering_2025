@@ -1,0 +1,146 @@
+<div class="modal-overlay col-lg-6" >
+    <div class="modal-content">
+      <h2 class="justify-content-center">Add New Product</h2>
+      <p>Fill in the product details here.</p>
+      <div class="modal-body">
+        <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+            <div class="container">
+              <div class="row mb-3">
+                <div class="col-md-4">
+                    <label for="name" class="form-label">Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      class="form-control"
+                      formControlName="name"
+                      placeholder="Enter Product Name"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label for="size" class="form-label">Size</label>
+                    <input
+                      type="text"
+                      id="size"
+                      class="form-control"
+                      formControlName="size"
+                      placeholder="Enter Product Size"
+                      required
+                    />
+                  </div>
+                  <div class="col-md-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input
+                      type="number"
+                      id="price"
+                      class="form-control"
+                      formControlName="price"
+                      placeholder="Enter Product Price"
+                      required
+                    />
+                  </div>
+                
+          
+               
+              </div>
+          
+              <div class="row mb-3">
+                
+                <div class="col-md-12">
+                  <label for="description" class="form-label">Description</label>
+                  <textarea
+                    id="description"
+                    class="form-control"
+                    formControlName="description"
+                    placeholder="Enter Product Description"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+          
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="brandID" class="form-label">Brand ID</label>
+                  <select id="brandID" class="form-select" formControlName="brandId" required="Please enter the brand!">
+                    <option value="1">Nike</option>
+                    <option value="2">Adidas</option>
+                    <option value="3">New Balance</option>
+                    <option value="4">Puma</option>
+                    <option value="5">Jordan</option>
+                    <option value="1002">Vans</option>
+                  </select>
+                </div>
+                <div class="col-md-6">
+                  <label for="colorID" class="form-label">Color ID</label>
+                  <select id="colorID" class="form-select" formControlName="colorId" required>
+                    <option value="1">Red</option>
+                    <option value="2">Green</option>
+                    <option value="3">Yellow</option>
+                    <option value="4">Blue</option>
+                    <option value="5">Purple</option>
+                    <option value="6">Brown</option>
+                    <option value="7">Black</option>
+                    <option value="8">White</option>
+                    <option value="9">Orange</option>
+                    <option value="10">Gray</option>
+                    <option value="11">Pink</option>
+                  </select>
+                </div>
+                
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label for="quantityInStock" class="form-label">Quantity In Stock</label>
+                  <input
+                    type="number"
+                    id="quantityInStock"
+                    class="form-control"
+                    formControlName="quantityInStock"
+                    placeholder="Enter Quantity in Stock"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="gender" class="form-label">Gender</label>
+                  <select id="gender" class="form-select" formControlName="gender" required>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                    <option value="U">Unisex</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="mainImage" class="form-label" >Main Image</label>
+                    <input type="text" id="mainImage" class="form-control" formControlName="mainImage" placeholder="Enter Main Image URL" required />
+                </div>
+                <div class="col-md-6">
+                  <label for="image3" class="form-label">Additional Image 1</label>
+                  <input type="text" id="image1" class="form-control" formControlName="image1" placeholder="Enter Image 1 URL" required/>
+              </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label for="image1" class="form-label">Additional Image 2</label>
+                    <input type="text" id="image2" class="form-control" formControlName="image2" placeholder="Enter Image 2 URL" required/>
+                </div>
+                <div class="col-md-6">
+                    <label for="image2" class="form-label">Additional Image 3</label>
+                    <input type="text" id="image3" class="form-control" formControlName="image3" placeholder="Enter Image 3 URL"required/>
+                </div>
+            </div>
+            
+
+              
+          
+              <div class="row mt-3">
+                <div class="col-md-12 d-flex justify-content-end">
+                  <button type="submit" class="btn btn-primary me-2">Save</button>
+                  <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <button class="btn btn-secondary" (click)="closeModal()">Close</button>
+    </div>
+</div>

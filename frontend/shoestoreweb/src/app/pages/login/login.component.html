@@ -1,0 +1,25 @@
+<div class="loginForm" >
+<div class="card shadow-lg">
+    <div class="card-header text-center bg-dark text-white">
+        <h5>Login</h5>
+    </div>
+    <div class="card-body ">
+        <form (ngSubmit)="onLogin()">
+            <div class="mb-3">
+                <label for="loginEmail" class="form-label">Email</label> 
+                <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" [(ngModel)]="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="loginPassword" class="form-label">Password</label>
+                <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" [(ngModel)]="password" name="password" required>
+            </div>
+            <div class="d-grid mb-3">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+            <div class="text-center">
+                <a href="register">Don't have an account? Register</a>
+            </div>
+        </form>
+    </div>
+</div>
+</div>

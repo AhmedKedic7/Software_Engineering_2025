@@ -12,15 +12,15 @@ import { CommonModule } from '@angular/common';
 })
 export class HomeComponent {
   latestShoes: any[] = [];
-
-  constructor(private productsService : ProductsService){
-    this.productsService.getProducts().subscribe(
-      (data)=>{
-        this.latestShoes= data.slice(0,4);
+ 
+  constructor(private productsService: ProductsService) {
+    this.productsService.getLatestProducts().subscribe(
+      (data) => {
+        this.latestShoes = data;  
       },
-      (error)=>{
-        console.error('Error fetchin products: ',error);
+      (error) => {
+        console.error('Error fetching latest products:', error);
       }
-    )
+    );
   }
 }

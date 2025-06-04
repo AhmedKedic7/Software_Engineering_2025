@@ -5,6 +5,9 @@ using ShoeStore.Repository.Implementions;
 using ShoeStore.Repository.Interfaces;
 using ShoeStore.Services.Implementations;
 using ShoeStore.Services.Interfaces;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,10 +15,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ShoeStoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // Add services to the container.
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<ICartService, CartService>(); 
+builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
+builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddHostedService<InactiveCartService>();
+builder.Services.AddAuthorization();
 
 
 builder.Services.AddControllers();

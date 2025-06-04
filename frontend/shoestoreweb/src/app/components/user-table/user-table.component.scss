@@ -1,0 +1,129 @@
+/* Custom Styling for DataTable */
+table.dataTable {
+    width: 100% !important;  
+    margin-bottom: 20px; 
+  }
+  
+  table.dataTable th, table.dataTable td {
+    text-align: center;  
+    vertical-align: middle;  
+  }
+  
+  table.dataTable thead th {
+    background-color: #f8f9fa;  
+    color: #495057;  
+  }
+  
+  table.dataTable tbody tr:hover {
+    background-color: #f1f1f1; 
+  }
+  
+  table.dataTable td {
+    font-size: 0.9rem;  
+    padding: 12px 16px;  
+  }
+  
+   
+  .dataTables_wrapper .dataTables_paginate {
+    margin-top: 20px;
+    text-align: center;
+  }
+  .btn-sm {
+    padding: 5px 10px;  
+  }
+  
+
+  .btn i {
+    font-size: 1.2rem; 
+  }
+  
+  .table th, .table td {
+    text-align: center;  
+  }
+  
+  
+  .btn:hover {
+    opacity: 0.8;
+  }
+
+  .modal {
+    display: flex !important;
+    position: fixed;
+    visibility: visible !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+  }
+  .modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 720px;
+    width: 90%;
+  }
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .close {
+    cursor: pointer;
+  }
+  
+  .delete-modal {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #delete-modal.modal-content {
+    background: #fff;
+    border-radius: 8px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+  }
+  #delete-modal.modal-header,
+  #delete-modal.modal-footer {
+    padding: 12px 16px;
+    border-bottom: 1px solid #ddd;
+  }
+  #delete-modal.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #delete-modal.modal-body {
+    padding: 16px;
+  }
+  #delete-modal.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    border-top: 1px solid #ddd;
+  }
+
+  #delete-modal.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  

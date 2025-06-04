@@ -1,6 +1,6 @@
-﻿using ShoeStore.Contracts.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace ShoeStore.Repository.Model;
 
@@ -28,15 +28,19 @@ public partial class Product
 
     public int ColorId { get; set; }
 
+    public int? QuantityInStock { get; set; }
+
+    public int Version { get; set; }
+
+    public bool IsLast { get; set; }
+    public Guid? LockedBy { get; set; }
     public virtual Brand Brand { get; set; } = null!;
 
     public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 
     public virtual Color Color { get; set; } = null!;
-
+    [JsonIgnore]
     public virtual ICollection<Image> Images { get; set; } = new List<Image>();
 
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
-
-    public virtual ICollection<ProductVersion> ProductVersions { get; set; } = new List<ProductVersion>();
 }
