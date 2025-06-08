@@ -3,9 +3,11 @@ nixPkgs = ['dotnet-sdk_8']
 
 [phases.build]
 cmds = [
+  'ls -la',
   'cd backend/ShoeStore',
-  'dotnet restore ShoeStore/ShoeStoreAPI.csproj',
-  'dotnet build ShoeStore/ShoeStoreAPI.csproj -c Release'
+  'ls -la',
+  'dotnet restore',
+  'dotnet build -c Release'
 ]
 
 [start]
