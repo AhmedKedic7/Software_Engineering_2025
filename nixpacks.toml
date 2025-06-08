@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ['dotnet-sdk_8']
+
+[phases.build]
+cmds = [
+  'dotnet restore "backend/ShoeStore/ShoeStore/ShoeStoreAPI.csproj"',
+  'dotnet publish "backend/ShoeStore/ShoeStore/ShoeStoreAPI.csproj" -c Release -o ./publish'
+]
+
+[start]
+cmd = "dotnet ./publish/ShoeStoreAPI.dll"

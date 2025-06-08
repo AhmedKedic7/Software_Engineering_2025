@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProductsService } from './products.service';
 import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
 
 interface AddItemToCartRequest {
   userId: string;
@@ -47,30 +48,30 @@ interface ImageContract {
   productId: string;
 }
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartsService {
-  private apiUrl = 'http://localhost:5098/api/Carts';
+  private apiUrl = `${environment.url}/Carts`;
 
-  private cartSubject: BehaviorSubject<CartContract | null> = new BehaviorSubject<CartContract | null>(null);
+  private cartSubject: BehaviorSubject<CartContract | null> =
+    new BehaviorSubject<CartContract | null>(null);
   cart$: Observable<CartContract | null> = this.cartSubject.asObservable();
 
-  constructor(private http: HttpClient, private authService:AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   addItemToCart(productId: string, quantity: number): Observable<void> {
     const userData = this.authService.getUserData();
     if (!userData) {
       throw new Error('User data not found in token');
     }
-  
+
     const request: AddItemToCartRequest = {
       userId: userData.userId,
       productId,
-      quantity
+      quantity,
     };
-  
+
     return this.http.post<void>(`${this.apiUrl}/add-item`, request);
   }
 
@@ -81,22 +82,25 @@ export class CartsService {
     });
   }
 
- removeItemFromCart(cartItemId: string): Observable<void> {
-   return this.http.delete<void>(`${this.apiUrl}/remove-item/${cartItemId}`);
- }
+  removeItemFromCart(cartItemId: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/remove-item/${cartItemId}`);
+  }
 
- checkout(cartId: string): Observable<void> {
-   return this.http.post<void>(`${this.apiUrl}/checkout/${cartId}`, {});
- }
+  checkout(cartId: string): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/checkout/${cartId}`, {});
+  }
 
- getCartByUserId(userId: string): Observable<CartContract> {
-   return this.http.get<CartContract>(`${this.apiUrl}/${userId}`);
- }
- updateCartItemQuantity(cartItemId: string, quantity: number): Observable<void> {
-  const body = {
-    CartItemId: cartItemId,
-    Quantity: quantity
-  };
-  return this.http.put<void>(`${this.apiUrl}/update-item-quantity`, body);
-}
+  getCartByUserId(userId: string): Observable<CartContract> {
+    return this.http.get<CartContract>(`${this.apiUrl}/${userId}`);
+  }
+  updateCartItemQuantity(
+    cartItemId: string,
+    quantity: number
+  ): Observable<void> {
+    const body = {
+      CartItemId: cartItemId,
+      Quantity: quantity,
+    };
+    return this.http.put<void>(`${this.apiUrl}/update-item-quantity`, body);
+  }
 }
