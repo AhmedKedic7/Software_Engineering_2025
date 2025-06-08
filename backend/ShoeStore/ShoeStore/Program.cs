@@ -12,8 +12,11 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? 
+    builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ShoeStoreDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(connectionString));
+
 // Add services to the container.
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();

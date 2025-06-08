@@ -19,3 +19,84 @@
 /backend/ShoeStore/ShoeStoreDAL/bin/Debug/net8.0
 /backend/ShoeStore/ShoeStoreDAL/obj
 /frontend/shoestoreweb/.vscode
+
+# Visual Studio
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build artifacts
+bin/
+obj/
+out/
+*.dll
+*.exe
+*.log
+*.pdb
+*.cache
+*.mdb
+*.ilk
+*.idb
+*.tlog
+*.tmp
+*.csproj.user
+*.dbmdl
+*.dbproj.schemaview
+*.jfm
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Generated files
+*.g.cs
+*.g.i.cs
+*.generated.cs
+*.Designer.cs
+*.AssemblyAttributes.cs
+
+# Entity Framework
+*.edmx.diagram
+*.edmx.sql
+*.edmx.xml
+
+# Azure
+*.azureactivitylog
+*.publishsettings
+*.scffconfig
+*.webpublish
+
+# Logs
+*.log
+*.tlog
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.sln.ide
+
+# Rider IDE
+.idea/
+*.iml
+
+
+# Secrets
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
