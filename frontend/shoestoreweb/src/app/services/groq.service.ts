@@ -3,12 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GroqService {
-
   private readonly apiUrl = 'https://api.groq.com/openai/v1/chat/completions';
-  private readonly apiKey = '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'; // Replace with your actual API key
+  private readonly apiKey = ''; // Replace with your actual API key
 
   constructor(private http: HttpClient) {}
 
