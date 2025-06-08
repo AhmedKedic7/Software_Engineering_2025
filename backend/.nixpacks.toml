@@ -1,0 +1,12 @@
+[phases.setup]
+nixPkgs = ['dotnet-sdk_8']
+
+[phases.build]
+cmds = [
+  'cd backend/ShoeStore',
+  'dotnet restore ShoeStore/ShoeStoreAPI.csproj',
+  'dotnet build ShoeStore/ShoeStoreAPI.csproj -c Release'
+]
+
+[start]
+cmd = "cd backend/ShoeStore/ShoeStore && dotnet run --urls http://0.0.0.0:${PORT:-8080}"
