@@ -1,36 +1,40 @@
 <header class="p-3 bg-dark text-white">
-    <div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-       
-        <a href="home" class="d-flex align-items-center mb-4 mb-lg-0 text-white text-decoration-none">
-            <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3"> <h3>xSHOES</h3> </div>
-        </a>
+  <div class="container">
+    <div
+      class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+    >
+      <a
+        href="/"
+        class="d-flex align-items-center mb-4 mb-lg-0 text-white text-decoration-none"
+      >
+        <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <h3>xSHOES</h3>
+        </div>
+      </a>
 
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="home" class="nav-link px-2 text-light ">Home</a></li>
-          <li><a href="products" class="nav-link px-2 text-light">Shoes</a></li>
-          <ng-container *ngIf="isLoggedIn && isAdmin">
-            <a href="admin" class="nav-link px-2 text-light">
-              Admin
-            </a>
-          </ng-container>
-          
-          
-        </ul>
+      <ul
+        class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+      >
+        <li><a href="/" class="nav-link px-2 text-light">Home</a></li>
+        <li><a href="products" class="nav-link px-2 text-light">Shoes</a></li>
+        <ng-container *ngIf="isLoggedIn && isAdmin">
+          <a href="admin" class="nav-link px-2 text-light"> Admin </a>
+        </ng-container>
+      </ul>
 
-        <form class="col-12 col-lg-5 mb-3 mb-lg-0 me-lg-3">
-          <div class="input-group">
-            <input
-              type="search"
-              class="form-control form-control-dark"
-              id="searchInput"
-              placeholder="Search..."
-              [(ngModel)]="searchQuery"
-              [ngModelOptions]="{ standalone: true }"
-              aria-label="Search"
-              (input)="onSearchChange($event)"
-              />
-             
+      <form class="col-12 col-lg-5 mb-3 mb-lg-0 me-lg-3">
+        <div class="input-group">
+          <input
+            type="search"
+            class="form-control form-control-dark"
+            id="searchInput"
+            placeholder="Search..."
+            [(ngModel)]="searchQuery"
+            [ngModelOptions]="{ standalone: true }"
+            aria-label="Search"
+            (input)="onSearchChange($event)"
+          />
+
           <!-- <select 
           class="form-select" 
           id="categorySelect" 
@@ -41,42 +45,59 @@
           <option value="women-shoes">Women</option>
         </select> -->
 
-            <!-- Optional: Submit Button -->
-            <button type="button" class="btn btn-dark" (click)="navigateToProducts()">
-              <i class="bi bi-search"></i>
-            </button>
-          </div>
-        </form>
-        <div class="text-end">
-          <ng-container *ngIf="isLoggedIn">
-            <a href="cart">
-              <button type="button" class="btn btn-outline-light me-2 position-relative">
-                <i class="bi bi-cart"></i>    
-                <span 
-                  *ngIf="cartItemCount > 0" 
-                  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  {{ cartItemCount }}
-                </span>
-              </button>
-            </a>
-          </ng-container> 
-          <ng-container *ngIf="!isLoggedIn">
-            <a href="login">
-              <button type="button" class="btn btn-outline-light me-2">Login</button>
-            </a>
-            <a href="register">
-              <button type="button" class="btn btn-warning">Sign-up</button>
-            </a>
-          </ng-container>          
-          <ng-container *ngIf="isLoggedIn">
-            <button type="button" class="btn btn-outline-light me-2" (click)="navigateToAccount()"><i class="bi bi-person"></i></button>
-          </ng-container>
-          
-          <ng-container *ngIf="isLoggedIn">
-            <button type="button" class="btn btn-danger" (click)="logout()">Logout</button>
-          </ng-container>
+          <!-- Optional: Submit Button -->
+          <button
+            type="button"
+            class="btn btn-dark"
+            (click)="navigateToProducts()"
+          >
+            <i class="bi bi-search"></i>
+          </button>
         </div>
-        
+      </form>
+      <div class="text-end">
+        <ng-container *ngIf="isLoggedIn">
+          <a href="cart">
+            <button
+              type="button"
+              class="btn btn-outline-light me-2 position-relative"
+            >
+              <i class="bi bi-cart"></i>
+              <span
+                *ngIf="cartItemCount > 0"
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+              >
+                {{ cartItemCount }}
+              </span>
+            </button>
+          </a>
+        </ng-container>
+        <ng-container *ngIf="!isLoggedIn">
+          <a href="login">
+            <button type="button" class="btn btn-outline-light me-2">
+              Login
+            </button>
+          </a>
+          <a href="register">
+            <button type="button" class="btn btn-warning">Sign-up</button>
+          </a>
+        </ng-container>
+        <ng-container *ngIf="isLoggedIn">
+          <button
+            type="button"
+            class="btn btn-outline-light me-2"
+            (click)="navigateToAccount()"
+          >
+            <i class="bi bi-person"></i>
+          </button>
+        </ng-container>
+
+        <ng-container *ngIf="isLoggedIn">
+          <button type="button" class="btn btn-danger" (click)="logout()">
+            Logout
+          </button>
+        </ng-container>
       </div>
     </div>
-  </header>
+  </div>
+</header>
