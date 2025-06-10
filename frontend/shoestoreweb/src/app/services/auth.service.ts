@@ -99,7 +99,7 @@ export class AuthService {
               'Successfully logged in!',
               'alert-success'
             );
-            this.router.navigate(['/home']);
+            this.router.navigate(['/']);
           }
         },
         error: (error) => {
