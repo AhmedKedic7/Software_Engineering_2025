@@ -1,12 +1,18 @@
 .loginForm {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 75vh;
-    margin: 0;
-    background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 75vh;
+  margin: 0;
+  background-color: #f8f9fa;
 }
+
+.text-link {
+  text-decoration: none;
+  color: #0111ff;
+}
+
 .card {
-    width: 100%;
-    max-width: 400px;
+  width: 100%;
+  max-width: 400px;
 }
