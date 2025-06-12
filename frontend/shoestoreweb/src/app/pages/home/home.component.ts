@@ -6,17 +6,17 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ShoeCardComponent,CommonModule],
+  imports: [ShoeCardComponent, CommonModule],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
 export class HomeComponent {
   latestShoes: any[] = [];
- 
+
   constructor(private productsService: ProductsService) {
     this.productsService.getLatestProducts().subscribe(
       (data) => {
-        this.latestShoes = data;  
+        this.latestShoes = data;
       },
       (error) => {
         console.error('Error fetching latest products:', error);

@@ -1,32 +1,29 @@
 @media (max-width: 1400px) {
   .col-lg-4 {
-    flex: 0 0 45%; 
+    flex: 0 0 45%;
     max-width: 45%;
   }
 }
 
 @media (max-width: 992px) {
   .col-md-6 {
-    flex: 0 0 50%;  
+    flex: 0 0 50%;
     max-width: 100%;
   }
 }
 @media (max-width: 762px) {
   .col-md-6 {
-    flex: 0 0 100%;  
+    flex: 0 0 100%;
     max-width: 200%;
   }
 }
 
 .filter-header {
- 
-   /* White text */
+  /* White text */
   font-weight: bold;
   top: 0;
-  
+
   margin: 0; /* Remove margins */
-   
-   
+
   border-radius: 5px 5px 0 0; /* Rounded top corners */
 }
-
